@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: yelp-camp-container
-          image: manoj3003/pipelie-cicd:33
+          image: manoj3003/pipelie-cicd:34
           ports:
             - containerPort: 3000
           env:
