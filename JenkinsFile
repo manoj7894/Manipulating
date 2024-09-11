@@ -17,7 +17,6 @@ pipeline {
     }
 
     stages {
-        /*
         stage('Cleanup Old Docker Images') {
             steps {
                 script {
@@ -47,7 +46,6 @@ pipeline {
                 }
             }
         }
-        */
         stage('GetCode') {
             steps {
                 git branch: 'main', url: 'https://github.com/manoj7894/Manipulating.git'
