@@ -17,6 +17,8 @@ spec:
           image: manoj3003/database:11
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+        - name: regcred     # Reference to the Docker registry secret
           env:
             - name: DB_URL
               valueFrom:
