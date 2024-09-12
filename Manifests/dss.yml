@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yelp-camp-deployment
-  namespace: webapps  # Ensure the namespace is specified if needed
+  # namespace: webapps  # Ensure the namespace is specified if needed
 spec:
   replicas: 1
   selector:
