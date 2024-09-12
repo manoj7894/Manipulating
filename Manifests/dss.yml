@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yelp-camp-deployment
+  namespace: webapps  # Ensure the namespace is specified if needed
 spec:
   replicas: 1
   selector:
@@ -14,11 +15,9 @@ spec:
     spec:
       containers:
         - name: yelp-camp-container
-          image: manoj3003/database:7
+          image: manoj3003/database:4
           ports:
             - containerPort: 3000
-      imagePullSecrets:
-        - name: regcred     # Reference to the Docker registry secret
           env:
             - name: DB_URL
               valueFrom:
@@ -68,6 +67,8 @@ spec:
               port: 3000
             initialDelaySeconds: 30
             timeoutSeconds: 10
+      imagePullSecrets:
+        - name: regcred  # Reference to the Docker registry secret
       volumes:
         - name: yelp-camp-storage
           persistentVolumeClaim:
