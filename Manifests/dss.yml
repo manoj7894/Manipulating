@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: yelp-camp-container
-          image: manoj3003/database:14
+          image: manoj3003/database:15
           ports:
             - containerPort: 3000
           env:
