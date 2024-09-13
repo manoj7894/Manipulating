@@ -24,8 +24,12 @@ pipeline {
                     def oldImages = sh(script: "docker images --format '{{.Repository}}:{{.Tag}}' | grep '${OLD_IMAGE_TAG_PATTERN}'", returnStdout: true).trim()
                     
                     if (oldImages) {
-                        oldImages.split('\n').each { image ->
-                            if (image != DOCKER_IMAGE) {
+                        def imagesToRemove = oldImages.split('\n').findAll { image ->
+                            image != DOCKER_IMAGE
+                        }
+                        
+                        if (imagesToRemove) {
+                            imagesToRemove.each { image ->
                                 echo "Attempting to remove old image ${image}"
                                 sh """
                                     if docker images -q ${image} > /dev/null 2>&1; then
@@ -35,6 +39,8 @@ pipeline {
                                     fi
                                 """
                             }
+                        } else {
+                            echo "No old images to remove."
                         }
                     } else {
                         echo "No old images found matching pattern ${OLD_IMAGE_TAG_PATTERN}"
