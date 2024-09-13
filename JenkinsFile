@@ -142,12 +142,14 @@ pipeline {
         stage("SonarQube") {
             steps {
                 withSonarQubeEnv('Sonar_Install') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Campground \
-                    -Dsonar.projectKey=Campground '''
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Campground \
+                    -Dsonar.projectKey=Campground \
+                    -Dsonar.host.url=http://65.0.180.233:9000'''
                 }
             }
         }
 
+       
         stage('Push') {
             steps {
                 script {
