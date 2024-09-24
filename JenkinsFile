@@ -16,7 +16,6 @@ pipeline {
     }
 
     stages {
-        /*
          stage('Cleanup Old Workspaces') {
             steps {
                 script {
@@ -53,7 +52,7 @@ pipeline {
                     '''
                 }
             }
-        } */
+        }
 
         stage('Check Old Docker Images') {
             steps {
@@ -208,7 +207,7 @@ pipeline {
                 withSonarQubeEnv('Sonar_Install') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Campground \
                     -Dsonar.projectKey=Campground \
-                    -Dsonar.host.url=http://65.0.180.233:9000'''
+                    -Dsonar.host.url=http://13.233.77.222:9000'''
                 }
             }
         }
