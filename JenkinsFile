@@ -131,6 +131,17 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/manoj7894/Manipulating.git'
             }
         }
+# Private repo
+        stage('Get Code') {
+            steps {
+                script {
+                    // Clone the repository using the PAT
+                    withCredentials([string(credentialsId: 'github_id', variable: 'GITHUB_TOKEN')]) {
+                        sh 'git clone https://$GITHUB_USER:$GITHUB_TOKEN@github.com/manoj7894/repo-0978.git'
+                    }
+                }
+            }
+        }
         
         stage('Install Package Dependencies') {
             steps {
