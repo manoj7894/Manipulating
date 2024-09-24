@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "manoj3003/database:${BUILD_NUMBER}"
-        OLD_IMAGE_TAG_PATTERN = "manoj3003/database:*"  // Pattern to match old images
         GIT_REPO_NAME = "Manipulating"
         GIT_USER_NAME = "manoj7894"
         DEPLOYMENT_FILE_PATH = "Manifests/dss.yml"  // Adjust the path if necessary
@@ -54,62 +53,10 @@ pipeline {
             }
         }
 
-        stage('Check Old Docker Images') {
+        stage('Remove All Previous Docker Images') {
             steps {
-                script {
-                    echo "Checking for old Docker images..."
-                    
-                    def oldImages = sh(script: "docker images --format '{{.Repository}}:{{.Tag}}' | grep '^manoj3003/database:' || true", returnStdout: true).trim()
-                    echo "Old images found: ${oldImages}"
-                    
-                    if (oldImages) {
-                        env.OLD_IMAGES_EXIST = 'true'
-                    } else {
-                        echo "No old images found."
-                        env.OLD_IMAGES_EXIST = 'false'
-                    }
-                }
-            }
-        }
-
-        stage('Cleanup Old Docker Images') {
-            when {
-                expression { env.OLD_IMAGES_EXIST == 'true' }
-            }
-            steps {
-                script {
-                    echo "Cleaning up old Docker images..."
-                    
-                    def oldImages = sh(script: "docker images --format '{{.Repository}}:{{.Tag}}' | grep '^manoj3003/database:' || true", returnStdout: true).trim()
-                    echo "Old images found for cleanup: ${oldImages}"
-                    
-                    if (oldImages) {
-                        def imagesToRemove = oldImages.split('\n').findAll { image ->
-                            image != DOCKER_IMAGE
-                        }
-                        
-                        if (imagesToRemove) {
-                            imagesToRemove.each { image ->
-                                echo "Attempting to remove old image ${image}"
-                                try {
-                                    sh """
-                                        if docker images -q ${image} > /dev/null 2>&1; then
-                                            docker rmi -f ${image} || echo 'Failed to remove image ${image} - might be in use or other error.'
-                                        else
-                                            echo 'Image ${image} does not exist.'
-                                        fi
-                                    """
-                                } catch (Exception e) {
-                                    echo "Error while attempting to remove image ${image}: ${e.getMessage()}"
-                                }
-                            }
-                        } else {
-                            echo "No old images to remove."
-                        }
-                    } else {
-                        echo "No old images found matching pattern 'manoj3003/database:'"
-                    }
-                }
+                // Remove all Docker images
+                sh 'docker rmi -f $(docker images -a -q) || true'
             }
         }
         
@@ -167,7 +114,7 @@ pipeline {
         stage('OWASP Scan') {
             when {
                 expression {
-                    fileExists('pom.xml')
+                    fileExists('package.json')
                 }
             }
             steps {
@@ -207,7 +154,7 @@ pipeline {
                 withSonarQubeEnv('Sonar_Install') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Campground \
                     -Dsonar.projectKey=Campground \
-                    -Dsonar.host.url=http://13.233.77.222:9000'''
+                    -Dsonar.host.url=http://13.201.168.141:9000'''
                 }
             }
         }
