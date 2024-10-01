@@ -11,6 +11,19 @@
 #   storageClassName: demo-storage  # Reference to your StorageClass
 
 
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: yelp-camp-pvc
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 3Gi
+#   storageClassName: my-storage-class
+
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -20,5 +33,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 3Gi
-  storageClassName: my-storage-class
+      storage: 3Gi  # Adjust size as needed
+  storageClassName: ebs-storage  # Reference to your Storage Class
