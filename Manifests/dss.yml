@@ -4,7 +4,7 @@ metadata:
   name: yelp-camp-deployment
   # namespace: webapps  # Ensure the namespace is specified if needed
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: yelp-camp
