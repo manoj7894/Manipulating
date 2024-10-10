@@ -48,14 +48,14 @@
 #      requests:
 #        storage: 5Gi
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-   name: yelp-camp-pvc
-spec:
-   storageClassName: gp2
-   accessModes:
-     - ReadWriteOnce
-   resources:
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#    name: yelp-camp-pvc
+# spec:
+#    storageClassName: gp2
+#    accessModes:
+#      - ReadWriteOnce
+#    resources:
      requests:
        storage: 2Gi
