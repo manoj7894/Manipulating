@@ -36,14 +36,26 @@
 #       storage: 3Gi  # Adjust size as needed
 #   storageClassName: ebs-storage  # Reference to your Storage Class
 
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#    name: yelp-camp-pvc
+# spec:
+#    storageClassName: my-custom-sc
+#    accessModes:
+#      - ReadWriteOnce
+#    resources:
+#      requests:
+#        storage: 5Gi
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
    name: yelp-camp-pvc
 spec:
-   storageClassName: my-custom-sc
+   storageClassName: gp2
    accessModes:
      - ReadWriteOnce
    resources:
      requests:
-       storage: 5Gi
+       storage: 2Gi
