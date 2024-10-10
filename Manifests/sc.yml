@@ -8,15 +8,15 @@
 # reclaimPolicy: Delete
 # volumeBindingMode: WaitForFirstConsumer
 
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: my-custom-sc
-provisioner: kubernetes.io/aws-ebs
-volumeBindingMode: Immediate
-allowVolumeExpansion: true
-reclaimPolicy: Retain
-parameters:
-  type: pd-standard
-  fstype: ext4
-  replication-type: none
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: my-custom-sc
+# provisioner: kubernetes.io/aws-ebs
+# volumeBindingMode: Immediate
+# allowVolumeExpansion: true
+# reclaimPolicy: Retain
+# parameters:
+#   type: pd-standard
+#   fstype: ext4
+#   replication-type: none
