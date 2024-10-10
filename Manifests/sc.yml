@@ -1,9 +1,22 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: ebs-storage
+# provisioner: ebs.csi.aws.com
+# parameters:
+#   type: gp3  # You can use gp2, gp3, io1, etc.
+# reclaimPolicy: Delete
+# volumeBindingMode: WaitForFirstConsumer
+
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ebs-storage
-provisioner: ebs.csi.aws.com
+  name: my-custom-sc
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+reclaimPolicy: Retain
 parameters:
-  type: gp3  # You can use gp2, gp3, io1, etc.
-reclaimPolicy: Delete
-volumeBindingMode: WaitForFirstConsumer
+  type: pd-standard
+  fstype: ext4
+  replication-type: none
