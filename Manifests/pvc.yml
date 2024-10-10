@@ -39,7 +39,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-   name: dynamic-disk-vc
+   name: yelp-camp-pvc
 spec:
    storageClassName: my-custom-sc
    accessModes:
